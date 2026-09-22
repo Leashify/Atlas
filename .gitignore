@@ -1,0 +1,22 @@
+# Rust
+target/
+**/target/
+Cargo.lock
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Mirror state
+.cursor
+mirrors/*/logs/*.log
+mirrors/*/failures/*.json
+
+# Build artifacts
+*.tmp
+*.bak
