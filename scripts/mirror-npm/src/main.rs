@@ -24,7 +24,7 @@ async fn main() -> Result<()> {
     info!("mirroring {} npm packages", names.len());
 
     let client = reqwest::Client::builder()
-        .user_agent("atlas-mirror-npm/0.1.0")
+        .user_agent("atlas-mirror-npm/0.9.1")
         .build()?;
 
     let stats = Arc::new(Mutex::new(Stats::default()));
