@@ -5,6 +5,7 @@ members = [
     "common",
     "mirror-npm",
     "mirror-crates",
+    "verify",
 ]
 
 [workspace.package]
