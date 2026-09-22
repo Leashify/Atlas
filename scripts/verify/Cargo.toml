@@ -1,0 +1,15 @@
+[package]
+name = "atlas-verify"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[[bin]]
+name = "atlas-verify"
+path = "src/main.rs"
+
+[dependencies]
+atlas-common = { path = "../common" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
