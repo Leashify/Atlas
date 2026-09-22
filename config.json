@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "generated": "2026-09-22T00:00:00Z",
+  "base_url": "https://leashify.github.io/Atlas",
+  "repo_url": "https://github.com/Leashify/Atlas",
+
+  "ecosystems": {
+    "npm": {
+      "index_path": "npm",
+      "download_url": "https://registry.npmjs.org/{name}/-/{name}-{version}.tgz",
+      "registry_url": "https://registry.npmjs.org",
+      "sharding": "npm",
+      "name_normalize": "none",
+      "upstream": "https://replicate.npmjs.com/_all_docs"
+    },
+    "cargo": {
+      "index_path": "cargo",
+      "download_url": "https://crates.io/api/v1/crates/{name}/{version}/download",
+      "registry_url": "https://crates.io",
+      "sharding": "cargo",
+      "name_normalize": "none",
+      "upstream": "https://index.crates.io"
+    },
+    "pypi": {
+      "index_path": "pypi",
+      "download_url": "https://files.pythonhosted.org/packages/{prefix}/{filename}",
+      "registry_url": "https://pypi.org/pypi",
+      "sharding": "pypi",
+      "name_normalize": "pypi",
+      "upstream": "https://pypi.org/simple"
+    },
+    "go": {
+      "index_path": "go",
+      "download_url": "https://proxy.golang.org/{name}/@v/{version}.zip",
+      "registry_url": "https://proxy.golang.org",
+      "sharding": "url",
+      "name_normalize": "none",
+      "upstream": "https://proxy.golang.org"
+    },
+    "github": {
+      "index_path": "github",
+      "download_url": "https://github.com/{name}/archive/{version}.tar.gz",
+      "registry_url": "https://api.github.com",
+      "sharding": "github",
+      "name_normalize": "none",
+      "upstream": "https://api.github.com"
+    }
+  },
+
+  "sparse": {
+    "enabled": true,
+    "ttl_seconds": 86400,
+    "fallback": "direct"
+  },
+
+  "signature": {
+    "required": false,
+    "public_key_path": "keys/public/signing-key.pub"
+  }
+}
