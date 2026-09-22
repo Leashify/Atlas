@@ -1,16 +1,26 @@
 # Atlas
 
-The metadata index for [leash](https://github.com/Leashify/Leash).
+The package index for [leash](https://github.com/Leashify/Leash).
 
-Atlas mirrors package metadata from npm, crates.io, PyPI, Go modules, and
-GitHub releases into one uniform format. `leash` reads Atlas to resolve
-dependencies. Artifacts themselves are downloaded directly from the
-original registries.
+Atlas contains the metadata needed for `leash` to download packages and
+resolve their dependencies across npm, crates.io, PyPI, Go modules, and
+GitHub releases.
 
-## What's here
+The index is available at:
 
-- **`config.json`** — registry endpoints and sharding rules
-- **`schema/`** — JSON schemas for every file format
-- **`scripts/`** — mirror jobs, one per ecosystem
-- **`npm/`, `cargo/`, `pypi/`, `go/`, `github/`** — the index itself
-- **`keys/`** — signing keys.
+- `https://leashify.github.io/Atlas/` as a set of static files
+- `https://github.com/Leashify/Atlas` as a git repository
+
+Each ecosystem has its own directory:
+
+- `npm/` — mirrored from the npm registry
+- `cargo/` — mirrored from crates.io
+- `pypi/` — mirrored from PyPI
+- `go/` — mirrored from the Go module proxy
+- `github/` — mirrored from GitHub releases
+
+Every package is one file. Every version is one line of JSON.
+
+## License
+
+MIT
