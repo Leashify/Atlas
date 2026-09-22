@@ -4,6 +4,7 @@ resolver = "2"
 members = [
     "common",
     "mirror-npm",
+    "mirror-crates",
 ]
 
 [workspace.package]
