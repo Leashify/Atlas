@@ -24,7 +24,10 @@ jobs:
           fetch-depth: 1
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: dtolnay/rust-toolchain@stable
+      - name: Install Rust toolchain
+        run: |
+          rustup show
+          rustup target list --installed
 
       - uses: Swatinem/rust-cache@v2
         with:
