@@ -1,0 +1,53 @@
+name: NPM - mirror
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: mirror-npm
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: scripts
+
+      - name: Build mirror
+        run: cargo build --release --manifest-path scripts/mirror-npm/Cargo.toml
+
+      - name: Run mirror
+        run: ./scripts/mirror-npm/target/release/atlas-mirror-npm
+        env:
+          RUST_LOG: info
+
+      - name: Configure git
+        run: |
+          git config user.name "leashify"
+          git config user.email "bot@leashify.dev"
+
+      - name: Commit and push
+        run: |
+          git add npm/ .cursor
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "mirror(npm): update $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+          fi
