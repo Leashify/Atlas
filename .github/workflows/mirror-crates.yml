@@ -1,0 +1,54 @@
+name: Cargo - mirror
+
+on:
+  schedule:
+    - cron: "30 */6 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: mirror-crates
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: master
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: scripts
+
+      - name: Build mirror
+        run: cargo build --release --manifest-path scripts/mirror-crates/Cargo.toml
+
+      - name: Run mirror
+        run: ./scripts/mirror-crates/target/release/atlas-mirror-crates
+        env:
+          RUST_LOG: info
+
+      - name: Configure git
+        run: |
+          git config user.name "leashify"
+          git config user.email "bot@leashify.dev"
+
+      - name: Commit and push
+        run: |
+          git add cargo/ .crates-cursor
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "mirror(crates): update $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push origin master
+          fi
