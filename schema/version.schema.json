@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://leashify.github.io/Atlas/schema/version.schema.json",
+  "title": "VersionEntry",
+  "description": "One line in a package file. One version of one package.",
+  "type": "object",
+  "required": ["v", "sha256", "url", "deps", "yanked", "published"],
+  "additionalProperties": false,
+  "properties": {
+    "v": {
+      "type": "string",
+      "description": "Version string, native to the ecosystem",
+      "minLength": 1
+    },
+    "sha256": {
+      "type": "string",
+      "description": "SHA-256 of the artifact tarball",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "url": {
+      "type": "string",
+      "description": "Exact download URL",
+      "format": "uri"
+    },
+    "deps": {
+      "type": "object",
+      "description": "Dependency name to constraint, in native syntax",
+      "additionalProperties": { "type": "string" }
+    },
+    "yanked": {
+      "type": "boolean",
+      "description": "True if the publisher withdrew this version"
+    },
+    "published": {
+      "type": "string",
+      "description": "ISO 8601 timestamp",
+      "format": "date-time"
+    },
+    "size": {
+      "type": "integer",
+      "description": "Artifact size in bytes",
+      "minimum": 0
+    },
+    "sig": {
+      "type": "string",
+      "description": "Optional publisher signature (base64)"
+    }
+  }
+}
