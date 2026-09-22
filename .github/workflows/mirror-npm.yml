@@ -20,6 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
+          ref: master
           fetch-depth: 1
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -49,5 +50,5 @@ jobs:
             echo "no changes"
           else
             git commit -m "mirror(npm): update $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-            git push
+            git push origin master
           fi
