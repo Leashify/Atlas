@@ -20,7 +20,9 @@ pub struct VersionEntry {
     #[serde(default)]
     pub yanked: bool,
 
-    /// ISO 8601 timestamp
+    /// ISO 8601 timestamp. Empty string means the ecosystem does not
+    /// expose a publish date (crates.io). Consumers must handle empty.
+    #[serde(default)]
     pub published: String,
 
     /// Artifact size, optional
